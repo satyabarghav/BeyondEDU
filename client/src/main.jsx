@@ -6,7 +6,7 @@ import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 import Login from './pages/Login.jsx'
 import Hero from './pages/Hero.jsx'
-import Signup from './pages/Signup.jsx'
+import Signup from './pages/SignUp.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter,BrowserRouter as Rooter } from 'react-router-dom'
 const router = createBrowserRouter([
