@@ -7,6 +7,9 @@ import Contact from './pages/Contact.jsx'
 import Login from './pages/Login.jsx'
 import Hero from './pages/Hero.jsx'
 import Signup from './pages/SignUp.jsx'
+import AdminDashboard from './dashboards/Admin.jsx'
+import StudentDashboard from './dashboards/Student.jsx'
+import TeacherDashboard from './dashboards/Teacher.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter,BrowserRouter as Rooter } from 'react-router-dom'
 const router = createBrowserRouter([
@@ -33,7 +36,20 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup/>
-  }
+  },
+  {
+    path: "/dashboard/admin",
+    element: <AdminDashboard/>
+  },
+  {
+    path: "/dashboard/student",
+    element: <StudentDashboard/>
+  },
+  {
+    path: "/dashboard/teacher",
+    element: <TeacherDashboard/>
+  },
+
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
