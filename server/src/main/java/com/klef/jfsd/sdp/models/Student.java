@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "student_table")
 public class Student {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,6 +20,9 @@ public class Student {
 
     @Column(nullable = false, unique = true, length = 100)
     private String email;
+
+    @Column(nullable = false, unique = true, length = 50) // New username field
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -35,7 +39,7 @@ public class Student {
     @Column(nullable = false)
     private String dob;
 
-    @Column(length = 15, nullable = false,unique = true)
+    @Column(length = 15, nullable = false, unique = true)
     private String contact;
 
     @Column(nullable = false)
@@ -45,10 +49,9 @@ public class Student {
     private LocalDateTime registrationDate;
 
     // Getters and Setters
-
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-    
+
     public String getFname() { return fname; }
     public void setFname(String fname) { this.fname = fname; }
 
@@ -57,6 +60,9 @@ public class Student {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getUsername() { return username; }  // Getter for username
+    public void setUsername(String username) { this.username = username; }  // Setter for username
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
@@ -86,7 +92,8 @@ public class Student {
     @Override
     public String toString() {
         return "Student [id=" + id + ", fname=" + fname + ", lname=" + lname + ", email=" + email + 
-               ", password=" + password + ", department=" + department + ", yearOfStudy=" + yearOfStudy + 
-               ", dob=" + dob + ", contact=" + contact + ", address=" + address + ", registrationDate=" + registrationDate + "]";
+               ", username=" + username + ", password=" + password + ", department=" + department + 
+               ", yearOfStudy=" + yearOfStudy + ", dob=" + dob + ", contact=" + contact + 
+               ", address=" + address + ", registrationDate=" + registrationDate + "]";
     }
 }

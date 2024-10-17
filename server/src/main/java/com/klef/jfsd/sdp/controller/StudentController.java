@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klef.jfsd.sdp.DTO.StudentLoginRequest;
+import com.klef.jfsd.sdp.DTO.StudentLoginResponse;
 import com.klef.jfsd.sdp.DTO.StudentSignUpRequest;
 import com.klef.jfsd.sdp.DTO.StudentSignUpResponse;
 import com.klef.jfsd.sdp.service.StudentService;
@@ -25,4 +27,9 @@ public class StudentController {
 		
 		return ResponseEntity.ok(response);
 	}
+	
+	@PostMapping("/login")
+	public StudentLoginResponse login(@RequestBody StudentLoginRequest loginRequest) {
+        return studentService.login(loginRequest);
+    }
 }

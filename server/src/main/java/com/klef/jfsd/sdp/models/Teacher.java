@@ -16,8 +16,17 @@ public class Teacher {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
+    @Column(nullable = false, unique = true, length = 50)
+    private String username;
+
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String role; // Example: "Senior Lecturer"
+
+    @Column(nullable = false)
+    private int yearsOfExperience;
 
     @OneToMany(mappedBy = "teacher")
     private List<Achievement> achievementsReviewed;
@@ -33,15 +42,24 @@ public class Teacher {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    public int getYearsOfExperience() { return yearsOfExperience; }
+    public void setYearsOfExperience(int yearsOfExperience) { this.yearsOfExperience = yearsOfExperience; }
 
     public List<Achievement> getAchievementsReviewed() { return achievementsReviewed; }
     public void setAchievementsReviewed(List<Achievement> achievementsReviewed) { this.achievementsReviewed = achievementsReviewed; }
 
-    // ToString method
     @Override
     public String toString() {
-        return "Teacher [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
+        return "Teacher [id=" + id + ", name=" + name + ", email=" + email + ", username=" + username +
+                ", role=" + role + ", yearsOfExperience=" + yearsOfExperience + "]";
     }
 }
