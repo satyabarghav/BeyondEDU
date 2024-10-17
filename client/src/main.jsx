@@ -7,11 +7,13 @@ import Contact from './pages/Contact.jsx'
 import Login from './pages/Login.jsx'
 import Hero from './pages/Hero.jsx'
 import Signup from './pages/SignUp.jsx'
-import AdminDashboard from './dashboards/Admin.jsx'
+import AdminDashboard from './dashboards/roles/Admin/Admin.jsx'
 import StudentDashboard from './dashboards/Student.jsx'
 import TeacherDashboard from './dashboards/Teacher.jsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter,BrowserRouter as Rooter } from 'react-router-dom'
+import AdminRouter from './dashboards/routes/Admin.jsx'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,10 +40,6 @@ const router = createBrowserRouter([
     element: <Signup/>
   },
   {
-    path: "/dashboard/admin",
-    element: <AdminDashboard/>
-  },
-  {
     path: "/dashboard/student",
     element: <StudentDashboard/>
   },
@@ -49,7 +47,7 @@ const router = createBrowserRouter([
     path: "/dashboard/teacher",
     element: <TeacherDashboard/>
   },
-
+  ...AdminRouter,
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

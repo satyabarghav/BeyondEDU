@@ -10,7 +10,7 @@ export default function DashboardLayout({ children, role }) {
   const menuItems = {
     admin: [
       { name: 'Dashboard', href: '/admin' },
-      { name: 'Achievement Management', href: '/admin/achievements' },
+      { name: 'Achievement Management', href: 'dashboard/admin/achievements' },
       { name: 'Participation Tracking', href: '/admin/participation' },
       { name: 'Reports and Analytics', href: '/admin/reports' },
       { name: 'User Management', href: '/admin/users' },

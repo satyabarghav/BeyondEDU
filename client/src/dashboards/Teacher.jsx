@@ -1,12 +1,27 @@
 import DashboardLayout from '@/dashboards/Layout'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CheckCircle, Users, FileText, BarChart } from 'lucide-react'
+import { CheckCircle, Users, FileText, BarChart, Calendar, Star } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default function TeacherDashboard() {
+  const pendingReviews = [
+    { id: 1, student: "Alice Johnson", achievement: "Advanced Math Project", submitted: "2023-06-15" },
+    { id: 2, student: "Bob Smith", achievement: "Science Fair Submission", submitted: "2023-06-14" },
+    { id: 3, student: "Charlie Brown", achievement: "Literature Essay", submitted: "2023-06-13" },
+  ]
+
+  const upcomingEvents = [
+    { id: 1, event: "Parent-Teacher Conference", date: "2023-06-20" },
+    { id: 2, event: "Science Fair Judging", date: "2023-06-25" },
+    { id: 3, event: "End of Semester Meeting", date: "2023-06-30" },
+  ]
+
   return (
     <DashboardLayout role="teacher">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Teacher Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card className="bg-gradient-to-br from-blue-50 to-purple-50">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Pending Reviews</CardTitle>
@@ -48,7 +63,94 @@ export default function TeacherDashboard() {
           </CardContent>
         </Card>
       </div>
-      {/* Add more teacher-specific components here */}
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Pending Achievement Reviews</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Student</TableHead>
+                  <TableHead>Achievement</TableHead>
+                  <TableHead>Submitted</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {pendingReviews.map((review) => (
+                  <TableRow key={review.id}>
+                    <TableCell>{review.student}</TableCell>
+                    <TableCell>{review.achievement}</TableCell>
+                    <TableCell>{review.submitted}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Button variant="outline" className="mt-4 w-full">
+              <CheckCircle className="mr-2 h-4 w-4" />
+              Review All Pending Achievements
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Upcoming Events</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-4">
+              {upcomingEvents.map((event) => (
+                <li key={event.id} className="flex items-center">
+                  <Calendar className="h-4 w-4 text-blue-500 mr-2" />
+                  <div>
+                    <p className="font-medium">{event.event}</p>
+                    <p className="text-sm text-gray-600">{event.date}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <Button variant="outline" className="mt-4 w-full">
+              <Calendar className="mr-2 h-4 w-4" />
+              View Full Calendar
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Class Performance Overview</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <div className="flex justify-between mb-1">
+              <span className="text-sm font-medium">Math</span>
+              <span className="text-sm font-medium">85%</span>
+            </div>
+            <Progress value={85} className="w-full" />
+          </div>
+          <div>
+            <div className="flex justify-between mb-1">
+              <span className="text-sm font-medium">Science</span>
+              <span className="text-sm font-medium">78%</span>
+            </div>
+            <Progress value={78} className="w-full" />
+          </div>
+          <div>
+            <div className="flex justify-between mb-1">
+              <span className="text-sm font-medium">Literature</span>
+              <span className="text-sm font-medium">92%</span>
+            </div>
+            <Progress value={92} className="w-full" />
+          </div>
+          <Button className="w-full">
+            <Star className="mr-2 h-4 w-4" />
+            Generate Detailed Performance Report
+          </Button>
+        </CardContent>
+      </Card>
     </DashboardLayout>
   )
 }
