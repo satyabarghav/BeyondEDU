@@ -2,13 +2,8 @@ package com.klef.jfsd.sdp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.klef.jfsd.sdp.DTO.StudentLoginRequest;
-import com.klef.jfsd.sdp.DTO.StudentLoginResponse;
 import com.klef.jfsd.sdp.DTO.StudentSignUpRequest;
 import com.klef.jfsd.sdp.DTO.StudentSignUpResponse;
 import com.klef.jfsd.sdp.service.StudentService;
@@ -16,20 +11,14 @@ import com.klef.jfsd.sdp.service.StudentService;
 @RestController
 @RequestMapping("/api/student")
 public class StudentController {
-	
-	@Autowired
-	private StudentService studentService;
-	
-	@PostMapping("/signup")
-	private ResponseEntity<StudentSignUpResponse> signup(@RequestBody StudentSignUpRequest request){
-		
-		StudentSignUpResponse response = studentService.register(request);
-		
-		return ResponseEntity.ok(response);
-	}
-	
-	@PostMapping("/login")
-	public StudentLoginResponse login(@RequestBody StudentLoginRequest loginRequest) {
-        return studentService.login(loginRequest);
+
+    @Autowired
+    private StudentService studentService;
+
+    // Student registration endpoint
+    @PostMapping("/register")
+    public ResponseEntity<StudentSignUpResponse> registerStudent(@RequestBody StudentSignUpRequest studentSignUpRequest) {
+        StudentSignUpResponse response = studentService.registerStudent(studentSignUpRequest);
+        return ResponseEntity.ok(response);
     }
 }

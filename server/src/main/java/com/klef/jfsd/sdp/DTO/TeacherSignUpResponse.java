@@ -5,14 +5,12 @@ public class TeacherSignUpResponse {
     private String name;
     private String email;
     private String username;
-    private String role;
 
-    public TeacherSignUpResponse(String message, String name, String email, String username, String role) {
+    public TeacherSignUpResponse(String message, String name, String email, String username) {
         this.message = message;
         this.name = name;
         this.email = email;
         this.username = username;
-        this.role = role;
     }
 
     // Getters
@@ -20,5 +18,4 @@ public class TeacherSignUpResponse {
     public String getName() { return name; }
     public String getEmail() { return email; }
     public String getUsername() { return username; }
-    public String getRole() { return role; }
 }

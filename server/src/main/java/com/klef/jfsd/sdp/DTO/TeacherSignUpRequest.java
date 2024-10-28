@@ -5,7 +5,6 @@ public class TeacherSignUpRequest {
     private String email;
     private String username;
     private String password;
-    private String role;
     private int yearsOfExperience;
 
     // Getters and Setters
@@ -21,8 +20,6 @@ public class TeacherSignUpRequest {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
 
     public int getYearsOfExperience() { return yearsOfExperience; }
     public void setYearsOfExperience(int yearsOfExperience) { this.yearsOfExperience = yearsOfExperience; }

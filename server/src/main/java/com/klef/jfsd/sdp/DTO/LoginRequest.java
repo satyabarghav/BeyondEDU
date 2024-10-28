@@ -1,10 +1,16 @@
 package com.klef.jfsd.sdp.DTO;
 
-public class AdminLoginRequest {
+public class LoginRequest {
     private String usernameOrEmail;
     private String password;
 
-    // Getters and Setters
+    // Constructor
+    public LoginRequest(String usernameOrEmail, String password) {
+        this.usernameOrEmail = usernameOrEmail;
+        this.password = password;
+    }
+
+    // Getters and setters
     public String getUsernameOrEmail() {
         return usernameOrEmail;
     }

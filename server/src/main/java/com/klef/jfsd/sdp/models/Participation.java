@@ -14,14 +14,15 @@ public class Participation {
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 
-    @Column(nullable = false, length = 100)
-    private String activityName;
+    @ManyToOne
+    @JoinColumn(name = "event_id", nullable = false)
+    private Event event;  
 
     @Column(nullable = false)
     private LocalDate participationDate;
 
     @Column(nullable = false)
-    private boolean completed;  // Whether the activity is completed
+    private String status;  
 
     // Getters and Setters
 
@@ -31,19 +32,19 @@ public class Participation {
     public Student getStudent() { return student; }
     public void setStudent(Student student) { this.student = student; }
 
-    public String getActivityName() { return activityName; }
-    public void setActivityName(String activityName) { this.activityName = activityName; }
+    public Event getEvent() { return event; }
+    public void setEvent(Event event) { this.event = event; }
 
     public LocalDate getParticipationDate() { return participationDate; }
     public void setParticipationDate(LocalDate participationDate) { this.participationDate = participationDate; }
 
-    public boolean isCompleted() { return completed; }
-    public void setCompleted(boolean completed) { this.completed = completed; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
     // ToString method
     @Override
     public String toString() {
-        return "Participation [id=" + id + ", student=" + student + ", activityName=" + activityName + 
-               ", participationDate=" + participationDate + ", completed=" + completed + "]";
+        return "Participation [id=" + id + ", student=" + student + ", event=" + event + 
+               ", participationDate=" + participationDate + ", status=" + status + "]";
     }
 }

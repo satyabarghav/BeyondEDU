@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.klef.jfsd.sdp.DTO.TeacherLoginRequest;
-import com.klef.jfsd.sdp.DTO.TeacherLoginResponse;
 import com.klef.jfsd.sdp.DTO.TeacherSignUpRequest;
 import com.klef.jfsd.sdp.DTO.TeacherSignUpResponse;
+import com.klef.jfsd.sdp.models.Role;
 import com.klef.jfsd.sdp.models.Teacher;
 import com.klef.jfsd.sdp.repository.TeacherRepository;
 
@@ -21,42 +20,24 @@ public class TeacherServiceImpl implements TeacherService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public TeacherSignUpResponse register(TeacherSignUpRequest teacherSignUpRequest) {
+    public TeacherSignUpResponse registerTeacher(TeacherSignUpRequest teacherSignUpRequest) {
         Teacher teacher = new Teacher();
         teacher.setName(teacherSignUpRequest.getName());
         teacher.setEmail(teacherSignUpRequest.getEmail());
         teacher.setUsername(teacherSignUpRequest.getUsername());
 
+        // Hash the password before saving
         String hashedPassword = passwordEncoder.encode(teacherSignUpRequest.getPassword());
         teacher.setPassword(hashedPassword);
+        teacher.setRole(Role.TEACHER);
 
-        teacher.setRole(teacherSignUpRequest.getRole());
+        // Additional teacher-specific fields
         teacher.setYearsOfExperience(teacherSignUpRequest.getYearsOfExperience());
 
+        // Save teacher entity to database
         teacherRepository.save(teacher);
 
-        return new TeacherSignUpResponse("Teacher registered successfully", teacher.getName(), teacher.getEmail(),
-                teacher.getUsername(), teacher.getRole());
+        // Create and return response
+        return new TeacherSignUpResponse("Teacher registration successful!", teacher.getName(), teacher.getEmail(), teacher.getUsername());
     }
-    
-    @Override
-    public TeacherLoginResponse login(TeacherLoginRequest teacherLoginRequest) {
-        Teacher teacher = teacherRepository.findByUsernameOrEmail(teacherLoginRequest.getUsernameOrEmail(),
-                teacherLoginRequest.getUsernameOrEmail());
-
-        if (teacher == null) {
-            throw new RuntimeException("Invalid credentials"); // Teacher not found
-        }
-
-        // Check if the provided password matches the stored password
-        if (!passwordEncoder.matches(teacherLoginRequest.getPassword(), teacher.getPassword())) {
-            throw new RuntimeException("Invalid credentials"); // Password mismatch
-        }
-
-        // Convert Teacher entity to TeacherLoginResponse (excluding password)
-        return new TeacherLoginResponse(teacher.getName(), teacher.getEmail(), teacher.getUsername(),
-                teacher.getRole(), teacher.getYearsOfExperience());
-    }
-
-
 }
