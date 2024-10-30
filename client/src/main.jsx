@@ -7,12 +7,14 @@ import Contact from './pages/Contact.jsx'
 import Login from './pages/Login.jsx'
 import Hero from './pages/Hero.jsx'
 import Signup from './pages/SignUp.jsx'
-import AdminDashboard from './dashboards/roles/Admin/Admin.jsx'
-import StudentDashboard from './dashboards/Student.jsx'
-import TeacherDashboard from './dashboards/Teacher.jsx'
+import StudentDashboard from './dashboards/roles/Student/Student.jsx'
+import TeacherDashboard from './dashboards/roles/Teacher/TeacherDashboard.jsx'
 import './index.css'
-import { RouterProvider, createBrowserRouter,BrowserRouter as Rooter } from 'react-router-dom'
-import AdminRouter from './dashboards/routes/Admin.jsx'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import AdminRoutes from './dashboards/routes/AdminRoutes.jsx'
+import DashboardLayout from './dashboards/Layout.jsx'
+import StudentRoutes from './dashboards/routes/StudentRoutes.jsx'
+import TeacherRoutes from './dashboards/routes/TeacherRoutes.jsx'
 
 const router = createBrowserRouter([
   {
@@ -47,8 +49,22 @@ const router = createBrowserRouter([
     path: "/dashboard/teacher",
     element: <TeacherDashboard/>
   },
-  ...AdminRouter,
-])
+  {
+    path: "/admin",
+    element: <DashboardLayout role="admin" />,
+    children: AdminRoutes,  // These will be rendered inside the Outlet
+  },
+  {
+    path: "/student",  // Changed from /dashboard/student
+    element: <DashboardLayout role="student" />,
+    children: StudentRoutes,
+  },
+  {
+    path: "/teacher",
+    element: <DashboardLayout role="teacher" />,
+    children: TeacherRoutes,
+  },
+]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router}/>

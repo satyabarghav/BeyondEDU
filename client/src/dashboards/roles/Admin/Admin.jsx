@@ -17,7 +17,7 @@ export default function AdminDashboard() {
   ]
 
   return (
-    <DashboardLayout role="admin">
+    <div>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
         <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
@@ -149,6 +149,6 @@ export default function AdminDashboard() {
           </ul>
         </CardContent>
       </Card>
-    </DashboardLayout>
+      </div>
   )
 }

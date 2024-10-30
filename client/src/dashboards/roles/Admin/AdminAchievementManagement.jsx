@@ -16,7 +16,7 @@ export default function AdminAchievementManagement() {
   ]
 
   return (
-    <DashboardLayout role="admin">
+    <>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Achievement Management</h1>
         <Button>
@@ -106,6 +106,6 @@ export default function AdminAchievementManagement() {
           </Table>
         </CardContent>
       </Card>
-    </DashboardLayout>
+    </>
   )
 }

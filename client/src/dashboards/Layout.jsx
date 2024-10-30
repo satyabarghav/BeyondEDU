@@ -1,32 +1,31 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Bell, LogOut, Menu, X } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import { Bell, LogOut, Menu, X } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function DashboardLayout({ children, role }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+export default function DashboardLayout({ role,children }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = {
     admin: [
-      { name: 'Dashboard', href: '/admin' },
-      { name: 'Achievement Management', href: 'dashboard/admin/achievements' },
-      { name: 'Participation Tracking', href: '/admin/participation' },
-      { name: 'Reports and Analytics', href: '/admin/reports' },
-      { name: 'User Management', href: '/admin/users' },
+      { name: 'Dashboard', path: '/admin' },
+      { name: 'Achievement Management', path: '/admin/achievements' },
+      { name: 'Participation Tracking', path: '/admin/participation' },
+      { name: 'Reports and Analytics', path: '/admin/reports' },
+      { name: 'User Management', path: '/admin/users' },
     ],
     student: [
-      { name: 'Dashboard', href: '/student' },
-      { name: 'Achievement Dashboard', href: '/student/achievements' },
-      { name: 'Profile Generation', href: '/student/profile' },
-      { name: 'Achievement Submission', href: '/student/submit' },
+      { name: 'Dashboard', path: '/student' },
+      { name: 'Profile Generation', path: '/student/profile' },
+      { name: 'Achievement Submission', path: '/student/submit' },
     ],
     teacher: [
-      { name: 'Dashboard', href: '/teacher' },
-      { name: 'Achievement Review', href: '/teacher/review' },
-      { name: 'Reports and Feedback', href: '/teacher/reports' },
+      { name: 'Dashboard', path: '/teacher' },
+      { name: 'Achievement Review', path: '/teacher/review' },
+      { name: 'Reports and Feedback', path: '/teacher/reports' },
     ],
-  }
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -36,7 +35,7 @@ export default function DashboardLayout({ children, role }) {
           <Link to="/" className="text-2xl font-semibold">
             BeyondEDU
           </Link>
-          <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)} className="lg:hidden text-white">
+          <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(false)} className="lg:hidden text-white" aria-label="Close menu">
             <X className="h-6 w-6" />
           </Button>
         </div>
@@ -44,7 +43,7 @@ export default function DashboardLayout({ children, role }) {
           <ul>
             {menuItems[role].map((item) => (
               <li key={item.name} className="px-6 py-2">
-                <Link to={item.href} className="text-gray-600 hover:text-gray-900 hover:bg-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+                <Link to={item.path} className="text-gray-600 hover:text-gray-900 hover:bg-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
                   {item.name}
                 </Link>
               </li>
@@ -56,7 +55,7 @@ export default function DashboardLayout({ children, role }) {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200">
-          <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="lg:hidden">
+          <Button variant="ghost" size="icon" onClick={() => setSidebarOpen(true)} className="lg:hidden" aria-label="Open menu">
             <Menu className="h-6 w-6" />
           </Button>
           <div className="flex items-center">
@@ -72,9 +71,10 @@ export default function DashboardLayout({ children, role }) {
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
           <div className="container mx-auto px-6 py-8">
             {children}
+            <Outlet /> {/* Only one Outlet here for the admin routes */}
           </div>
         </main>
       </div>
     </div>
-  )
+  );
 }
