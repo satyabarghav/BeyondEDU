@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         switch (user.getRole()) {
             case ADMIN:
                 Admin admin = adminRepository.findByUsername(user.getUsername());
-                return new UserDetailsResponse(admin.getName(), admin.getUsername(), admin.getEmail(), "Admin");
+                return new UserDetailsResponse(admin.getName(), admin.getUsername(), admin.getEmail(), "ADMIN");
 
             case STUDENT:
                 Student student = studentRepository.findByUsername(user.getUsername());
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
                         student.getDepartment(),
                         student.getYearOfStudy(),
                         student.getUsername(),
-                        "Student"
+                        "STUDENT"
                     );
                 }
                 break;
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
                         teacher.getName(),
                         teacher.getEmail(),
                         teacher.getUsername(),
-                        "Teacher"
+                        "TEACHER"
                     );
                 }
                 break;
