@@ -10,7 +10,10 @@ public abstract class User {
     private int id;
 
     @Column(nullable = false, length = 50)
-    private String name;
+    private String fname;
+
+    @Column(nullable = false, length = 50)
+    private String lname;
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;
@@ -23,8 +26,8 @@ public abstract class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role; 
-     
+    private Role role;
+
     // Getters and Setters
     public int getId() {
         return id;
@@ -34,12 +37,20 @@ public abstract class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFname() {
+        return fname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getUsername() {
@@ -76,6 +87,6 @@ public abstract class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", role=" + role + "]";
+        return "User [id=" + id + ", fname=" + fname + ", lname=" + lname + ", username=" + username + ", email=" + email + ", role=" + role + "]";
     }
 }

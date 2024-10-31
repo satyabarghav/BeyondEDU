@@ -7,11 +7,6 @@ import java.util.List;
 @Entity
 @Table(name = "student_table")
 public class Student extends User {
-    @Column(nullable = false, length = 50)
-    private String fname;
-
-    @Column(nullable = false, length = 50)
-    private String lname;
 
     @Column(nullable = false, length = 50)
     private String department;
@@ -35,22 +30,7 @@ public class Student extends User {
     private LocalDateTime registrationDate;
 
     // Getters and Setters
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
+    
     public String getDepartment() {
         return department;
     }
@@ -109,8 +89,9 @@ public class Student extends User {
 
     @Override
     public String toString() {
-        return "Student [fname=" + fname + ", lname=" + lname + ", department=" + department + 
-               ", yearOfStudy=" + yearOfStudy + ", dob=" + dob + ", contact=" + contact + 
+        return "Student [fname=" + getFname() + ", lname=" + getLname() + 
+               ", department=" + department + ", yearOfStudy=" + yearOfStudy + 
+               ", dob=" + dob + ", contact=" + contact + 
                ", address=" + address + ", registrationDate=" + registrationDate + "]";
     }
 }

@@ -10,6 +10,6 @@ public class Admin extends User {
     
     @Override
     public String toString() {
-        return "Admin [name=" + getName() + ", username=" + getUsername() + ", email=" + getEmail() + "]";
+        return "Admin [fname=" + getFname() + ", lname=" + getLname() + ", username=" + getUsername() + ", email=" + getEmail() + ", role=" + getRole() + "]";
     }
 }

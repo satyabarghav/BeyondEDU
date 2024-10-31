@@ -1,10 +1,10 @@
 package com.klef.jfsd.sdp.DTO;
 
 public class StudentSignUpRequest {
-    private String fname;
-    private String lname;
+    private String fname;  // First name
+    private String lname;  // Last name
     private String email;
-    private String username;  // New username field
+    private String username;  // Username field
     private String password;
     private String department;
     private int yearOfStudy;
@@ -13,20 +13,21 @@ public class StudentSignUpRequest {
     private String address;
 
     // Getters and Setters
+
     public String getFname() {
-        return fname;
+        return fname; // Getter for first name
     }
 
     public void setFname(String fname) {
-        this.fname = fname;
+        this.fname = fname; // Setter for first name
     }
 
     public String getLname() {
-        return lname;
+        return lname; // Getter for last name
     }
 
     public void setLname(String lname) {
-        this.lname = lname;
+        this.lname = lname; // Setter for last name
     }
 
     public String getEmail() {

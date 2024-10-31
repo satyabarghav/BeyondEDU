@@ -2,17 +2,17 @@ package com.klef.jfsd.sdp.DTO;
 
 public class StudentSignUpResponse {
     private String message;
-    private String fname;
-    private String lname;
+    private String fname;  // First name
+    private String lname;  // Last name
     private String email;
-    private String username; // New username field
+    private String username; // Username field
 
     public StudentSignUpResponse(String message, String fname, String lname, String email, String username) {
         this.message = message;
-        this.fname = fname;
-        this.lname = lname;
+        this.fname = fname; // Assign first name in constructor
+        this.lname = lname; // Assign last name in constructor
         this.email = email;
-        this.username = username;  // Assign username in constructor
+        this.username = username; // Assign username in constructor
     }
 
     // Getters
@@ -21,11 +21,11 @@ public class StudentSignUpResponse {
     }
 
     public String getFname() {
-        return fname;
+        return fname; // Getter for first name
     }
 
     public String getLname() {
-        return lname;
+        return lname; // Getter for last name
     }
 
     public String getEmail() {

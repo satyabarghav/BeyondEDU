@@ -46,6 +46,7 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
 
         // Create and return response
-        return new StudentSignUpResponse("Student registration successful!", student.getFname(), student.getLname(), student.getEmail(), student.getUsername());
+        return new StudentSignUpResponse("Student registration successful!",student.getFname(),student.getLname(), student.getEmail(), student.getUsername());
     }
+    
 }

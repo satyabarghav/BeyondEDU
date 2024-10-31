@@ -6,8 +6,6 @@ import java.util.List;
 @Entity
 @Table(name = "teacher_table")
 public class Teacher extends User {
-    @Column(nullable = false)
-    private String name;
 
     @Column(nullable = false)
     private int yearsOfExperience;
@@ -16,14 +14,6 @@ public class Teacher extends User {
     private List<Achievement> achievementsReviewed;
 
     // Getters and Setters
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getYearsOfExperience() {
         return yearsOfExperience;
     }
@@ -42,6 +32,8 @@ public class Teacher extends User {
 
     @Override
     public String toString() {
-        return "Teacher [name=" + name + ", yearsOfExperience=" + yearsOfExperience + "]";
+        return "Teacher [fname=" + getFname() + ", lname=" + getLname() + 
+               ", username=" + getUsername() + ", email=" + getEmail() + 
+               ", yearsOfExperience=" + yearsOfExperience + "]";
     }
 }

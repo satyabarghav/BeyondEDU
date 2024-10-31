@@ -22,7 +22,8 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public TeacherSignUpResponse registerTeacher(TeacherSignUpRequest teacherSignUpRequest) {
         Teacher teacher = new Teacher();
-        teacher.setName(teacherSignUpRequest.getName());
+        teacher.setFname(teacherSignUpRequest.getFname());
+        teacher.setLname(teacherSignUpRequest.getLname());
         teacher.setEmail(teacherSignUpRequest.getEmail());
         teacher.setUsername(teacherSignUpRequest.getUsername());
 
@@ -38,6 +39,6 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepository.save(teacher);
 
         // Create and return response
-        return new TeacherSignUpResponse("Teacher registration successful!", teacher.getName(), teacher.getEmail(), teacher.getUsername());
+        return new TeacherSignUpResponse("Teacher registration successful!", teacher.getFname(),teacher.getLname(), teacher.getEmail(), teacher.getUsername());
     }
 }
