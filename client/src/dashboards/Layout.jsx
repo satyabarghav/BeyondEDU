@@ -14,6 +14,7 @@ export default function DashboardLayout({ role,children }) {
       { name: 'Participation Tracking', path: '/admin/participation' },
       { name: 'Reports and Analytics', path: '/admin/reports' },
       { name: 'User Management', path: '/admin/users' },
+      { name: 'Event Management',path: '/admin/events'}
     ],
     student: [
       { name: 'Dashboard', path: '/student' },

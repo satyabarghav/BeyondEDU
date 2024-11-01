@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Loader2, User, Lock, AlertCircle } from 'lucide-react'
-import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Loader2, User, Lock, AlertCircle } from 'lucide-react';
+import axios from 'axios';
+import { useState } from 'react';
+import api from '@/api.js';
 
 // Define Icons object within the file
 const Icons = {
@@ -33,13 +35,14 @@ const Icons = {
       <path d="M1 1h22v22H1z" fill="none" />
     </svg>
   ),
-}
+};
 
 export default function Login() {
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +56,22 @@ export default function Login() {
 
       const response = await axios.post("http://localhost:2021/auth/login", user);
       console.log(response.data); // Handle the response as needed
-      // Redirect or update state based on successful login
+      const role = response.data.role;
+      const token = response.data.token;
+
+      sessionStorage.setItem("jwtToken",token);
+      sessionStorage.setItem("role",role);
+
+      // Redirect based on role
+      if (role === "ADMIN") {
+        navigate("/admin");
+      } else if (role === "STUDENT") {
+        navigate("/student");
+      } else if (role === "TEACHER") {
+        navigate("/teacher");
+      } else {
+        navigate("/login");
+      }
     } catch (err) {
       setError(err.response ? err.response.data.message : "An error occurred");
     } finally {

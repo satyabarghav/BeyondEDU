@@ -17,7 +17,7 @@ export default function AdminParticipationTracking() {
   ]
 
   return (
-    <>
+    <DashboardLayout role = "admin">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Participation Tracking</h1>
         <Button>
@@ -102,6 +102,6 @@ export default function AdminParticipationTracking() {
           </Table>
         </CardContent>
       </Card>
-    </>
+    </DashboardLayout>
   )
 }

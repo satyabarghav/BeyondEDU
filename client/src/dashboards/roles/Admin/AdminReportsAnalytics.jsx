@@ -26,7 +26,7 @@ export default function AdminReportsAnalytics() {
   ]
 
   return (
-    <>
+    <DashboardLayout role = "admin">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Reports and Analytics</h1>
         <div className="flex space-x-2">
@@ -116,6 +116,6 @@ export default function AdminReportsAnalytics() {
           <span>Download Raw Data</span>
         </Button>
       </div>
-    </>
+    </DashboardLayout>
   )
 }

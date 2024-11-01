@@ -18,7 +18,7 @@ export default function AdminUserManagement() {
   ]
 
   return (
-    <>
+    <DashboardLayout role = "admin">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">User Management</h1>
         <Button>
@@ -116,6 +116,6 @@ export default function AdminUserManagement() {
           </Table>
         </CardContent>
       </Card>
-    </>
+    </DashboardLayout>
   )
 }

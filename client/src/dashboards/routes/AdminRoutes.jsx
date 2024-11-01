@@ -3,7 +3,7 @@ import AdminAchievementManagement from '@/dashboards/roles/Admin/AdminAchievemen
 import AdminParticipationTracking from '@/dashboards/roles/Admin/AdminParticipationTracking.jsx';
 import AdminReportAnalytics from '@/dashboards/roles/Admin/AdminReportsAnalytics.jsx';
 import AdminUserManagement from '@/dashboards/roles/Admin/AdminUserManagement.jsx';
-
+import AdminEventManagement from '@/dashboards/roles/Admin/AdminEventManagement.jsx'
 const AdminRoutes = [
   {
     index: true, // This makes it the default route
@@ -25,6 +25,10 @@ const AdminRoutes = [
     path: 'users',
     element: <AdminUserManagement />,
   },
+  {
+    path: 'events',
+    element: <AdminEventManagement/>
+  }
 ];
 
 export default AdminRoutes;
