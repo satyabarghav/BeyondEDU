@@ -3,16 +3,19 @@ package com.klef.jfsd.sdp.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.klef.jfsd.sdp.DTO.AdminSignUpRequest;
 import com.klef.jfsd.sdp.DTO.AdminSignUpResponse;
+import com.klef.jfsd.sdp.DTO.CreateEventRequest;
+import com.klef.jfsd.sdp.DTO.CreateEventResponse;
 import com.klef.jfsd.sdp.models.Admin;
+import com.klef.jfsd.sdp.models.Event;
 import com.klef.jfsd.sdp.models.Role;
 import com.klef.jfsd.sdp.models.Student;
 import com.klef.jfsd.sdp.repository.AdminRepository;
+import com.klef.jfsd.sdp.repository.EventRepository;
 import com.klef.jfsd.sdp.repository.StudentRepository;
 
 @Service
@@ -26,6 +29,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    
 
     @Override
     public AdminSignUpResponse registerAdmin(AdminSignUpRequest adminSignUpRequest) {
@@ -50,5 +54,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
-    }
+	}
+		
 }

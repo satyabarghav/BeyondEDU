@@ -16,16 +16,16 @@ public class Participation {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
-    private Event event;  
+    private Event event;  // Reference to the Event this participation is associated with
 
     @Column(nullable = false)
     private LocalDate participationDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status;  
+    private Status status;  // Use the Participation Status Enum
 
     // Getters and Setters
-
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -38,10 +38,9 @@ public class Participation {
     public LocalDate getParticipationDate() { return participationDate; }
     public void setParticipationDate(LocalDate participationDate) { this.participationDate = participationDate; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
 
-    // ToString method
     @Override
     public String toString() {
         return "Participation [id=" + id + ", student=" + student + ", event=" + event + 

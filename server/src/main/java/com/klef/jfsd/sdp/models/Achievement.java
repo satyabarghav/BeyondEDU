@@ -30,10 +30,13 @@ public class Achievement {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    private Teacher teacher;  // Reference to the Teacher who approved the achievement
+
+    @ManyToOne
+    @JoinColumn(name = "event_id", nullable = false)
+    private Event event;  // Reference to the event associated with this achievement
 
     // Getters and Setters
-
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -58,11 +61,13 @@ public class Achievement {
     public Teacher getTeacher() { return teacher; }
     public void setTeacher(Teacher teacher) { this.teacher = teacher; }
 
-    // ToString method
+    public Event getEvent() { return event; }
+    public void setEvent(Event event) { this.event = event; }
+
     @Override
     public String toString() {
         return "Achievement [id=" + id + ", title=" + title + ", description=" + description + 
                ", credentialUrl=" + credentialUrl + ", status=" + status + ", feedback=" + feedback + 
-               ", student=" + student + ", teacher=" + teacher + "]";
+               ", student=" + student + ", teacher=" + teacher + ", event=" + event + "]";
     }
 }

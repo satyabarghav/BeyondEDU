@@ -6,8 +6,8 @@ public class UserDetailsResponse {
     private String email;       // Email
     private String username;    // Username
     private String role;        // User role (Admin/Student/Teacher)
+    private String token;
 
-    // Constructor for all users
     public UserDetailsResponse(String firstName, String lastName, String username, String email, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,5 +35,13 @@ public class UserDetailsResponse {
 
     public String getRole() {
         return role;
+    }
+    
+    public String getToken() {
+    	return token;
+    }
+    
+    public void setToken(String token) {
+    	this.token = token;
     }
 }
