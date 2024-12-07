@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create an instance
 const api = axios.create({
-  baseURL: 'https"//jfsd-sdp-server-production.up.railway.app', 
+  baseURL: 'http://jfsd-sdp-server-production.up.railway.app', 
 });
 
 // Add a request interceptor to include the token
