@@ -4,6 +4,9 @@ import AdminParticipationTracking from '@/dashboards/roles/Admin/AdminParticipat
 import AdminReportAnalytics from '@/dashboards/roles/Admin/AdminReportsAnalytics.jsx';
 import AdminUserManagement from '@/dashboards/roles/Admin/AdminUserManagement.jsx';
 import AdminEventManagement from '@/dashboards/roles/Admin/AdminEventManagement.jsx'
+import TeacherManagement from "../roles/Admin/TeacherManagement";
+import StudentManagement from "../roles/Admin/StudentManagement";
+
 const AdminRoutes = [
   {
     index: true, // This makes it the default route
@@ -28,6 +31,14 @@ const AdminRoutes = [
   {
     path: 'events',
     element: <AdminEventManagement/>
+  },
+  {
+    path: 'users/teachers',
+    element: <TeacherManagement />,
+  },
+  {
+    path: 'users/students',
+    element: <StudentManagement />,
   }
 ];
 

@@ -6,16 +6,23 @@ public class TeacherSignUpResponse {
     private String lname;        // Last name
     private String email;        // Email
     private String username;     // Username
+    private String empId;
+ 
 
-    public TeacherSignUpResponse(String message, String fname, String lname, String email, String username) {
+    public TeacherSignUpResponse(String message, String fname, String lname, String email, String username,String empId) {
         this.message = message;
         this.fname = fname;      // Assign first name in constructor
         this.lname = lname;      // Assign last name in constructor
         this.email = email;
         this.username = username; // Assign username in constructor
+        this.empId = empId;
     }
 
-    // Getters
+    public TeacherSignUpResponse(String message) {
+		this.message = message;
+	}
+
+	// Getters
     public String getMessage() {
         return message;
     }
@@ -35,4 +42,12 @@ public class TeacherSignUpResponse {
     public String getUsername() {
         return username;
     }
+
+	public String getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(String empId) {
+		this.empId = empId;
+	}
 }

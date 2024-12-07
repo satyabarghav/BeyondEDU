@@ -17,7 +17,7 @@ export default function StudentAchievementSubmission() {
   ]
 
   return (
-    <>
+    <DashboardLayout role="student">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Achievement Submission</h1>
       </div>
@@ -110,6 +110,6 @@ export default function StudentAchievementSubmission() {
           </Table>
         </CardContent>
       </Card>
-    </>
+    </DashboardLayout>
   )
 }

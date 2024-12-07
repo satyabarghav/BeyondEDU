@@ -1,43 +1,64 @@
 package com.klef.jfsd.sdp.models;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "event_table")
 public class Event {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private int id;
 
-    @Column(nullable = false, length = 100)
-    private String title;
+	    @Column(nullable = false, length = 100)
+	    private String title;
 
-    @Column(nullable = false)
-    private String description;
+	    @Column(nullable = false)
+	    private String description;
 
-    @Column(nullable = false)
-    private LocalDateTime eventDate;
+	    @Column(nullable = false)
+	    private LocalDateTime eventDate;
 
-    @Column(nullable = false, length = 100)
-    private String location;
+	    @Column(nullable = false, length = 100)
+	    private String location;
 
-    @Column(nullable = false)
-    private int maxParticipants;  // Maximum strength of participants
+	    @Column(nullable = false)
+	    private int maxParticipants;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private EventType eventType;  // Enum for Event Types (e.g., Sports, Arts, Academic)
+	    @Enumerated(EnumType.STRING)
+	    @Column(nullable = false)
+	    private EventType eventType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private EventClassification classification;  // Enum for Competitive or Non-Competitive
+	    @Enumerated(EnumType.STRING)
+	    @Column(nullable = false)
+	    private EventClassification classification;
 
-    // One-to-many relationship with Participation
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Participation> participations;
+	    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	    @JsonManagedReference // Prevents infinite recursion
+	    private List<Participation> participations;
+
+
+	    @ManyToOne
+	    @JoinColumn(name = "teacher_id", nullable = false)
+	    private Teacher incharge;
+
 
     // Getters and Setters
     public int getId() {
@@ -119,4 +140,18 @@ public class Event {
                ", maxParticipants=" + maxParticipants + ", eventType=" + eventType + 
                ", classification=" + classification + ", participations=" + participations + "]";
     }
+
+	public Teacher getIncharge() {
+		return incharge;
+	}
+
+	public void setIncharge(Teacher incharge) {
+		this.incharge = incharge;
+	}
+
+	public boolean isCompetitive() {
+		if(classification.equals(EventClassification.COMPETITIVE))
+			return true;
+		return false;
+	}
 }

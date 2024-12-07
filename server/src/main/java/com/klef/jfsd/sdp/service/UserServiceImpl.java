@@ -68,14 +68,14 @@ public class UserServiceImpl implements UserService {
 		case ADMIN:
 			Admin admin = adminRepository.findByUsername(user.getUsername());
 			userDetailsResponse = new UserDetailsResponse(admin.getFname(), admin.getLname(), admin.getUsername(),
-					admin.getEmail(), "ADMIN");
+					admin.getEmail(), "ADMIN",admin.getId());
 			break;
 
 		case STUDENT:
 			Student student = studentRepository.findByUsername(user.getUsername());
 			if (student != null) {
 				userDetailsResponse = new UserDetailsResponse(student.getFname(), student.getLname(),
-						student.getUsername(),student.getEmail(),  "STUDENT");
+						student.getUsername(),student.getEmail(),  "STUDENT",student.isFirstLogin(),student.getId(),student.getRegNum());
 			}
 			break;
 
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 			Teacher teacher = teacherRepository.findByUsername(user.getUsername());
 			if (teacher != null) {
 				userDetailsResponse = new UserDetailsResponse(teacher.getFname(), teacher.getLname(),
-						 teacher.getUsername(), teacher.getEmail(),"TEACHER");
+						 teacher.getUsername(), teacher.getEmail(),"TEACHER",teacher.getId());
 			}
 			break;
 
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 			SuperAdmin superAdmin = superAdminRepository.findByUsername(user.getUsername());
 			if (superAdmin != null) {
 				userDetailsResponse = new UserDetailsResponse(superAdmin.getFname(), superAdmin.getLname(),
-						superAdmin.getUsername(), superAdmin.getEmail(), "SUPERADMIN");
+						superAdmin.getUsername(), superAdmin.getEmail(), "SUPERADMIN",superAdmin.getId());
 			}
 			break;
 

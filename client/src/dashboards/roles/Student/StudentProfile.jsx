@@ -25,7 +25,7 @@ export default function StudentProfileGeneration() {
   }
 
   return (
-    <>
+    <DashboardLayout role="student">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Profile Generation</h1>
         <Button>
@@ -170,6 +170,6 @@ export default function StudentProfileGeneration() {
         <Button variant="outline">Save Draft</Button>
         <Button>Update Profile</Button>
       </div>
-    </>
+    </DashboardLayout>
   )
 }

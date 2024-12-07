@@ -1,6 +1,7 @@
 package com.klef.jfsd.sdp.DTO;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.klef.jfsd.sdp.models.EventClassification;
 import com.klef.jfsd.sdp.models.EventType;
@@ -35,9 +36,11 @@ public class CreateEventRequest {
     @NotNull(message = "Event classification is required")
     private EventClassification classification;
 
-    // Constructors (if needed)
+    @NotNull(message = "Teacher ID is required")
+    private UUID teacherId; // Added field for the teacher ID
+
+    // Default constructor
     public CreateEventRequest() {
-        // Default constructor
     }
 
     // Getters and Setters
@@ -97,11 +100,20 @@ public class CreateEventRequest {
         this.classification = classification;
     }
 
+    public UUID getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(UUID teacherId) {
+        this.teacherId = teacherId;
+    }
+
     @Override
     public String toString() {
         return "CreateEventRequest [title=" + title + ", description=" + description + 
                ", eventDate=" + eventDate + ", location=" + location + 
                ", maxParticipants=" + maxParticipants + 
-               ", eventType=" + eventType + ", classification=" + classification + "]";
+               ", eventType=" + eventType + ", classification=" + classification + 
+               ", teacherId=" + teacherId + "]";
     }
 }

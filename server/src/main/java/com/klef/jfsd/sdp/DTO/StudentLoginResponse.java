@@ -5,13 +5,16 @@ public class StudentLoginResponse {
     private String lname;      // Last name
     private String email;      // Email
     private String username;    // Username
+    private String regNum;
 
     // Constructor
-    public StudentLoginResponse(String fname, String lname, String email, String username) {
+    public StudentLoginResponse(String fname, String lname, String email, String username,String regNum) {
         this.fname = fname; 
         this.lname = lname; 
         this.email = email; 
         this.username = username; // Set username in constructor
+        this.regNum = regNum;
+        
     }
 
     // Getters
@@ -30,4 +33,12 @@ public class StudentLoginResponse {
     public String getUsername() {
         return username;
     }
+
+	public String getRegNum() {
+		return regNum;
+	}
+
+	public void setRegNum(String regNum) {
+		this.regNum = regNum;
+	}
 }

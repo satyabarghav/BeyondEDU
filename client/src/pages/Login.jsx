@@ -1,19 +1,19 @@
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Loader2, User, Lock, AlertCircle } from 'lucide-react';
+import { Loader2, User, Lock, AlertCircle, Home } from 'lucide-react';
 import axios from 'axios';
-import { useState } from 'react';
-import api from '@/api.js';
+import { toast, Toaster } from "sonner";
 
-// Define Icons object within the file
 const Icons = {
   spinner: Loader2,
   user: User,
   lock: Lock,
   alertCircle: AlertCircle,
+  home: Home,
   google: (props) => (
     <svg {...props} viewBox="0 0 24 24">
       <path
@@ -48,105 +48,141 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+
     try {
       const user = {
         usernameOrEmail,
-        password
+        password,
       };
 
       const response = await axios.post("http://localhost:2021/auth/login", user);
-      console.log(response.data); // Handle the response as needed
-      const role = response.data.role;
-      const token = response.data.token;
 
-      sessionStorage.setItem("jwtToken",token);
-      sessionStorage.setItem("role",role);
+      // Check HTTP Status Code
+      if (response.status === 200) {
+        // Success response, handle based on role
+        const { role, token, firstLogin, email, regNum } = response.data;
+        sessionStorage.setItem("regNum", regNum);
+        sessionStorage.setItem("jwtToken", token);
 
-      // Redirect based on role
-      if (role === "ADMIN") {
-        navigate("/admin");
-      } else if (role === "STUDENT") {
-        navigate("/student");
-      } else if (role === "TEACHER") {
-        navigate("/teacher");
+        // Show success toast
+        toast.success("Login successful! Redirecting...");
+
+        // Navigate to the appropriate dashboard after 2 seconds
+        setTimeout(() => {
+          if (role === "ADMIN") {
+            navigate("/admin");
+          } else if (firstLogin && (role === "STUDENT" || role === "TEACHER")) {
+            navigate("/reset-password");
+          } else if (role === "STUDENT") {
+            navigate("/student");
+          } else if (role === "TEACHER") {
+            navigate("/teacher");
+          } else {
+            navigate("/login");
+          }
+        }, 2000);
       } else {
-        navigate("/login");
+        // If status is not 200 (e.g., 400, 401, etc.), show a toast with the status message
+        toast.error(`Error: ${response.status} - ${response.statusText}`);
       }
     } catch (err) {
-      setError(err.response ? err.response.data.message : "An error occurred");
+      // Handle Error
+      if (err.response) {
+        // Server errors (e.g., 4xx, 5xx)
+        const { status, data } = err.response;
+        if (status === 400 || status === 401) {
+          toast.error(data.message || "Invalid credentials");
+        } else {
+          toast.error(`Server error: ${data.message || "An error occurred"}`);
+        }
+      } else {
+        // Network errors, timeout, etc.
+        toast.error("Network error. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl font-bold text-center">Welcome Back</CardTitle>
-          <p className="text-center text-sm text-muted-foreground">
-            Enter your credentials to access your account
-          </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Username or Email</Label>
-              <div className="relative">
-                <Icons.user className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="text"
-                  placeholder="johndoe@example.com"
-                  className="pl-10"
-                  value={usernameOrEmail}
-                  onChange={(e) => setUsernameOrEmail(e.target.value)}
-                />
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4 relative">
+      <Toaster richColors />
+      <Link to="/" className="absolute top-4 left-4">
+        <Button variant="ghost" size="icon" className="w-10 h-10 rounded-full bg-white/50 hover:bg-white/70 transition-colors">
+          <Icons.home className="h-5 w-5 text-gray-600" />
+        </Button>
+      </Link>
+      <Card className="w-full max-w-4xl shadow-xl overflow-hidden">
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/2 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1510531704581-5b2870972060?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}} />
+          <div className="md:w-1/2 p-8 bg-white">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-3xl font-bold text-center text-gray-800">Log In</CardTitle>
+              <p className="text-center text-sm text-gray-600">
+                Enter your credentials to access your account
+              </p>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={onSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-gray-700">Username or Email</Label>
+                  <div className="relative">
+                    <Icons.user className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="email"
+                      type="text"
+                      placeholder="johndoe@example.com"
+                      className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      value={usernameOrEmail}
+                      onChange={(e) => setUsernameOrEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-gray-700">Password</Label>
+                  <div className="relative">
+                    <Icons.lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      className="pl-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
+                {error && (
+                  <div className="bg-red-100 text-red-600 text-sm p-3 rounded-md flex items-center gap-2">
+                    <Icons.alertCircle className="h-4 w-4" />
+                    <p>{error}</p>
+                  </div>
+                )}
+                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={isLoading}>
+                  {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+                  {isLoading ? "Logging in..." : "Log In"}
+                </Button>
+              </form>
+            </CardContent>
+            <CardFooter className="flex flex-col space-y-4">
+              <div className="flex items-center space-x-2">
+                <div className="bg-gray-300 h-px flex-grow" />
+                <span className="text-sm text-gray-500">OR</span>
+                <div className="bg-gray-300 h-px flex-grow" />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Icons.lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  className="pl-10"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
-            {error && (
-              <div className="bg-destructive/15 text-destructive text-sm p-3 rounded-md flex items-center gap-2">
-                <Icons.alertCircle className="h-4 w-4" />
-                <p>{error}</p>
-              </div>
-            )}
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-              {isLoading ? "Logging in..." : "Log In"}
-            </Button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col space-y-4">
-          <div className="flex items-center space-x-2">
-            <div className="bg-muted h-px flex-grow" />
-            <span className="text-sm text-muted-foreground">OR</span>
-            <div className="bg-muted h-px flex-grow" />
+              <Button variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50">
+                <Icons.google className="mr-2 h-4 w-4" />
+                Continue with Google
+              </Button>
+              <p className="text-center text-sm text-gray-600">
+                Don&apos;t have an account?{" "}
+                <Link to="/signup" className="font-medium text-blue-600 hover:underline">
+                  Sign up
+                </Link>
+              </p>
+            </CardFooter>
           </div>
-          <Button variant="outline" className="w-full">
-            <Icons.google className="mr-2 h-4 w-4" />
-            Continue with Google
-          </Button>
-          <p className="text-center text-sm text-muted-foreground">
-            Don&apos;t have an account?{" "}
-            <Link to="/signup" className="font-medium text-primary hover:underline">
-              Sign up
-            </Link>
-          </p>
-        </CardFooter>
+        </div>
       </Card>
     </div>
   );

@@ -19,7 +19,7 @@ export default function StudentAchievementDashboard() {
   ]
 
   return (
-    <>
+    <DashboardLayout role="student">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-gray-800">Achievement Dashboard</h1>
         <Button>
@@ -148,6 +148,6 @@ export default function StudentAchievementDashboard() {
           </Table>
         </CardContent>
       </Card>
-    </>
+    </DashboardLayout>
   )
 }

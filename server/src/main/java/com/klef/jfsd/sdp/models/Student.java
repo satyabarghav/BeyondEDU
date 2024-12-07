@@ -1,97 +1,110 @@
 package com.klef.jfsd.sdp.models;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "student_table")
 public class Student extends User {
 
-    @Column(nullable = false, length = 50)
-    private String department;
+	 @Column(unique = true, nullable = false)
+	    private String regNum;
 
-    @Column(nullable = false)
-    private int yearOfStudy;
+	    @Column(length = 50)
+	    private String department;
 
-    @OneToMany(mappedBy = "student")
-    private List<Achievement> achievements;
+	    private Integer yearOfStudy;
 
-    @Column(nullable = false)
-    private String dob;
+	    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	    @JsonManagedReference // Prevents infinite recursion
+	    private List<Achievement> achievements;
 
-    @Column(length = 15, nullable = false, unique = true)
-    private String contact;
+	    private String dob;
+	    private String contact;
+	    private String address;
 
-    @Column(nullable = false)
-    private String address;
+	    @Column(nullable = false)
+	    private boolean isFirstLogin = true;
 
-    @Column(nullable = false)
-    private LocalDateTime registrationDate;
+	// Getters and Setters
 
-    // Getters and Setters
-    
-    public String getDepartment() {
-        return department;
-    }
+	public String getDepartment() {
+		return department;
+	}
 
-    public void setDepartment(String department) {
-        this.department = department;
-    }
+	public void setDepartment(String department) {
+		this.department = department;
+	}
 
-    public int getYearOfStudy() {
-        return yearOfStudy;
-    }
+	public Integer getYearOfStudy() {
+		return yearOfStudy;
+	}
 
-    public void setYearOfStudy(int yearOfStudy) {
-        this.yearOfStudy = yearOfStudy;
-    }
+	public void setYearOfStudy(Integer yearOfStudy) {
+		this.yearOfStudy = yearOfStudy;
+	}
 
-    public List<Achievement> getAchievements() {
-        return achievements;
-    }
+	 @JsonManagedReference
+	public List<Achievement> getAchievements() {
+		return achievements;
+	}
 
-    public void setAchievements(List<Achievement> achievements) {
-        this.achievements = achievements;
-    }
+	public void setAchievements(List<Achievement> achievements) {
+		this.achievements = achievements;
+	}
 
-    public String getDob() {
-        return dob;
-    }
+	public String getDob() {
+		return dob;
+	}
 
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
 
-    public String getContact() {
-        return contact;
-    }
+	public String getContact() {
+		return contact;
+	}
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
+	public boolean isFirstLogin() {
+		return isFirstLogin;
+	}
 
-    public void setRegistrationDate(LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
+	public void setFirstLogin(boolean isFirstLogin) {
+		this.isFirstLogin = isFirstLogin;
+	}
 
-    @Override
-    public String toString() {
-        return "Student [fname=" + getFname() + ", lname=" + getLname() + 
-               ", department=" + department + ", yearOfStudy=" + yearOfStudy + 
-               ", dob=" + dob + ", contact=" + contact + 
-               ", address=" + address + ", registrationDate=" + registrationDate + "]";
-    }
+	@Override
+	public String toString() {
+		return "Student [fname=" + getFname() + ", lname=" + getLname() + ", department=" + department
+				+ ", yearOfStudy=" + yearOfStudy + ", dob=" + dob + ", contact=" + contact + ", address=" + address
+				+ ", isFirstLogin=" + isFirstLogin + "]";
+	}
+
+	public String getRegNum() {
+		return regNum;
+	}
+
+	public void setRegNum(String regNum) {
+		this.regNum = regNum;
+	}
 }

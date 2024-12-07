@@ -34,6 +34,8 @@ public class JWTService {
 	    claims.put("lastName", userDetailsResponse.getLastName());
 	    claims.put("email", userDetailsResponse.getEmail());
 	    claims.put("role", "ROLE_"+userDetailsResponse.getRole());
+	    claims.put("id",userDetailsResponse.getId());
+	    claims.put("regNum", userDetailsResponse.getRegNum());
 	    return Jwts.builder()
 	            .claims() 
 	            .add(claims)

@@ -7,6 +7,7 @@ public class TeacherSignUpRequest {
     private String username;          // Username
     private String password;          // Password
     private int yearsOfExperience;    // Years of experience
+    private String empId;
 
     // Getters and Setters
     public String getFname() {
@@ -56,4 +57,12 @@ public class TeacherSignUpRequest {
     public void setYearsOfExperience(int yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience; 
     }
+
+	public String getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(String empId) {
+		this.empId = empId;
+	}
 }

@@ -15,6 +15,9 @@ import TeacherRoutes from './dashboards/routes/TeacherRoutes.jsx';
 import AdminRoutes from './dashboards/routes/AdminRoutes.jsx';
 import DashboardLayout from './dashboards/Layout.jsx';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import ResetPassword from './pages/ResetPassword.jsx';
+import Unauthorized from './pages/Unauthorized.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,10 @@ const router = createBrowserRouter([
     element: <Login />
   },
   {
+    path: "/reset-password",
+    element: <ResetPassword />
+  },
+  {
     path: "/signup",
     element: <Signup />
   },
@@ -56,6 +63,14 @@ const router = createBrowserRouter([
     element: <ProtectedRoutes allowedRoles={['TEACHER']} />,  // Wrap Teacher routes with ProtectedRoute
     children: TeacherRoutes,
   },
+  {
+    path: "/unauthorized",
+    element: <Unauthorized />
+  },
+  {
+    path: "*",
+    element: <NotFound />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -1,12 +1,23 @@
 package com.klef.jfsd.sdp.DTO;
 
+import java.time.LocalDateTime;
+
 public class CreateEventResponse {
     private int eventId;
     private String title;
     private String message;
     private boolean success;
+    private LocalDateTime date;
 
     // Constructor
+    public CreateEventResponse(int eventId, String title, String message, boolean success,LocalDateTime date) {
+        this.eventId = eventId;
+        this.title = title;
+        this.message = message;
+        this.success = success;
+        this.date = date;
+    }
+    
     public CreateEventResponse(int eventId, String title, String message, boolean success) {
         this.eventId = eventId;
         this.title = title;
@@ -44,6 +55,14 @@ public class CreateEventResponse {
 
 	public void setSuccess(boolean success) {
 		this.success = success;
+	}
+
+	public LocalDateTime getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDateTime date) {
+		this.date = date;
 	}
 
     // Getters and Setters

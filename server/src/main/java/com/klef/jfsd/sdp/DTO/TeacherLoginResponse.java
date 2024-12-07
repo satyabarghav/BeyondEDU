@@ -6,13 +6,15 @@ public class TeacherLoginResponse {
     private String email;               // Email
     private String username;            // Username
     private int yearsOfExperience;      // Years of experience
+    private String empId;
 
-    public TeacherLoginResponse(String fname, String lname, String email, String username, int yearsOfExperience) {
+    public TeacherLoginResponse(String fname, String lname, String email, String username, int yearsOfExperience,String empId) {
         this.fname = fname;              // Assign first name in constructor
         this.lname = lname;              // Assign last name in constructor
         this.email = email;
         this.username = username;
         this.yearsOfExperience = yearsOfExperience;
+        this.empId = empId;
     }
 
     // Getters
@@ -35,4 +37,12 @@ public class TeacherLoginResponse {
     public int getYearsOfExperience() {
         return yearsOfExperience;
     }
+
+	public String getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(String empId) {
+		this.empId = empId;
+	}
 }

@@ -6,13 +6,15 @@ public class StudentSignUpResponse {
     private String lname;  // Last name
     private String email;
     private String username; // Username field
+    private String regNum;
 
-    public StudentSignUpResponse(String message, String fname, String lname, String email, String username) {
+    public StudentSignUpResponse(String message, String fname, String lname, String email, String username,String regNum) {
         this.message = message;
         this.fname = fname; // Assign first name in constructor
         this.lname = lname; // Assign last name in constructor
         this.email = email;
         this.username = username; // Assign username in constructor
+        this.regNum = regNum;
     }
 
     // Getters
@@ -35,4 +37,12 @@ public class StudentSignUpResponse {
     public String getUsername() {
         return username;
     }
+
+	public String getRegNum() {
+		return regNum;
+	}
+
+	public void setRegNum(String regNum) {
+		this.regNum = regNum;
+	}
 }

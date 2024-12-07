@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
@@ -10,10 +12,20 @@ const Navbar = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const [activeItem, setActiveItem] = useState('/');
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setActiveItem(location.pathname);
   }, [location]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const NavItems = () => (
     <>
@@ -40,7 +52,9 @@ const Navbar = () => {
   );
 
   return (
-    <header className="fixed top-0 left-0 z-50 flex w-full items-center justify-between bg-custom-gradient px-4 py-3 shadow-sm sm:px-6 md:px-8 lg:px-10">
+    <header className={`fixed top-0 left-0 z-50 flex w-full items-center justify-between px-4 py-3 shadow-sm sm:px-6 md:px-8 lg:px-10 transition-colors duration-300 ${
+      isScrolled ? 'bg-white' : 'bg-custom-gradient'
+    }`}>
       {/* Logo and branding */}
       <Link to="/" className="flex items-center">
         <img src={logBlack} alt="beyondEDU Logo" className="h-14 w-auto ml-2" />
@@ -79,3 +93,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

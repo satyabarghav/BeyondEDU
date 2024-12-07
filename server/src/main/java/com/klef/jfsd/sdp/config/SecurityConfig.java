@@ -44,7 +44,9 @@ public class SecurityConfig {
                     "/api-docs",
                     "/api/teacher/register",
                     "/api/student/register",
-                    "/api/admin/createadmin"
+                    "/api/admin/createadmin",
+                    "api/teacher/batch-register",
+                    "api/student/batch-register"
                 ).permitAll()  // Permit all necessary Swagger and API documentation routes
                 .anyRequest().authenticated()  // Secure all other endpoints
             );

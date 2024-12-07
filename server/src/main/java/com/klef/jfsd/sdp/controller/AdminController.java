@@ -30,7 +30,7 @@ public class AdminController {
     }
     
     @GetMapping("/viewallstudents")
-    @PreAuthorize("hasRole('ADMIN','SUPERADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPERADMIN')")
     public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> students = adminService.getAllStudents();
         return ResponseEntity.ok(students);

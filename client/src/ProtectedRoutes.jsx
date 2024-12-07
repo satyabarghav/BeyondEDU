@@ -2,10 +2,12 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { jwtDecode } from 'jwt-decode';
 
 const ProtectedRoute = ({ allowedRoles }) => {
   const token = sessionStorage.getItem('jwtToken');
-  const userRole = sessionStorage.getItem('role');
+  const userRole = token!=null ? jwtDecode(token).role.substring(5).toUpperCase():"";
+  console.log(userRole);
 
   if (!token) {
     // Redirect to login if no token is found

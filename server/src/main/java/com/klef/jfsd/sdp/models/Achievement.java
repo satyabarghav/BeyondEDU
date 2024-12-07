@@ -1,6 +1,20 @@
 package com.klef.jfsd.sdp.models;
 
-import jakarta.persistence.*;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "achievement_table")
@@ -9,65 +23,140 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = true, length = 100)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String description;
 
-    @Column(nullable = false, length = 255)
-    private String credentialUrl;  // Optional URL for credential verification
+    @Column(nullable = true, length = 255)
+    private String credentialUrl;
 
     @Column(nullable = false)
-    private String status;  // PENDING, APPROVED, REJECTED
+    private String status; // PENDING, APPROVED, REJECTED
 
-    @Column(length = 500)
-    private String feedback;  // Feedback from the teacher or admin
-
-    @ManyToOne
+    @Column(nullable = true, length = 500)
+    private String feedback;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
+    @JsonBackReference // Prevents infinite recursion
     private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;  // Reference to the Teacher who approved the achievement
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)
-    private Event event;  // Reference to the event associated with this achievement
+    @JsonBackReference // Prevents infinite recursion
+    private Event event;
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher_id", nullable = true)
+    @JsonBackReference // Prevents infinite recursion
+    private Teacher teacher;
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    @Column(name = "achievement_rank", nullable = true, length = 50) // Renamed column
+    private String achievementRank;
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AchievementType achievementType;
 
-    public String getCredentialUrl() { return credentialUrl; }
-    public void setCredentialUrl(String credentialUrl) { this.credentialUrl = credentialUrl; }
+    @Column(nullable = false)
+    private LocalDate achievementDate;
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    // Getters and setters
+    public int getId() {
+        return id;
+    }
 
-    public String getFeedback() { return feedback; }
-    public void setFeedback(String feedback) { this.feedback = feedback; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public Student getStudent() { return student; }
-    public void setStudent(Student student) { this.student = student; }
+    public String getTitle() {
+        return title;
+    }
 
-    public Teacher getTeacher() { return teacher; }
-    public void setTeacher(Teacher teacher) { this.teacher = teacher; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public Event getEvent() { return event; }
-    public void setEvent(Event event) { this.event = event; }
+    public String getDescription() {
+        return description;
+    }
 
-    @Override
-    public String toString() {
-        return "Achievement [id=" + id + ", title=" + title + ", description=" + description + 
-               ", credentialUrl=" + credentialUrl + ", status=" + status + ", feedback=" + feedback + 
-               ", student=" + student + ", teacher=" + teacher + ", event=" + event + "]";
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCredentialUrl() {
+        return credentialUrl;
+    }
+
+    public void setCredentialUrl(String credentialUrl) {
+        this.credentialUrl = credentialUrl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public String getAchievementRank() {
+        return achievementRank;
+    }
+
+    public void setAchievementRank(String achievementRank) {
+        this.achievementRank = achievementRank;
+    }
+
+    public AchievementType getAchievementType() {
+        return achievementType;
+    }
+
+    public void setAchievementType(AchievementType achievementType) {
+        this.achievementType = achievementType;
+    }
+
+    public LocalDate getAchievementDate() {
+        return achievementDate;
+    }
+
+    public void setAchievementDate(LocalDate achievementDate) {
+        this.achievementDate = achievementDate;
     }
 }
