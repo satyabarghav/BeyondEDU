@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Loader2, User, Lock, AlertCircle, Home } from 'lucide-react';
 import axios from 'axios';
 import { toast, Toaster } from "sonner";
+import route from './../config';
 
 const Icons = {
   spinner: Loader2,
@@ -55,7 +56,7 @@ export default function Login() {
         password,
       };
 
-      const response = await axios.post("http://localhost:2021/auth/login", user);
+      const response = await axios.post(`${route}/auth/login`, user);
 
       // Check HTTP Status Code
       if (response.status === 200) {
